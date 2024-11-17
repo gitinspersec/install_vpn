@@ -6,6 +6,7 @@ Este script automatiza o processo de instalação e configuração do WireGuard,
 Antes de usar o script, certifique-se de que:
 
 - Você está usando uma distribuição Linux baseada em Debian (como Ubuntu) com o gerenciador de pacotes `apt`.
+- Ou uma destribuição red-hat sob o gerenciador de pacotes dnf (como a fedora).
 - Você tem privilégios de superusuário (root) ou acesso ao comando `sudo`.
 - O arquivo de configuração do WireGuard (`wg-conf-1.conf`) está localizado na mesma pasta que o script.
 
@@ -20,7 +21,7 @@ Antes de usar o script, certifique-se de que:
    Antes de executar o script pela primeira vez, você precisa dar permissão de execução. Execute o seguinte comando no terminal:
 
    ```bash
-   chmod +x run.sh
+   chmod +x script-debian.sh
    ```
 
 3. **Execute o script**
@@ -28,7 +29,7 @@ Antes de usar o script, certifique-se de que:
    Execute o script com o seguinte comando:
 
    ```bash
-   bash ./run.sh
+   bash ./script-debian.sh
    ```
 
    Durante a execução, o script irá:
