@@ -17,9 +17,17 @@ else
     echo "Diretório /etc/wireguard já existe."
 fi
 
-# Verifica se o arquivo já existe antes de mover
+# Verifica se o arquivo já existe e tenta realizar wg-quick down
 if [ -f /etc/wireguard/wg-conf-1.conf ]; then
-    echo "Arquivo wg-conf-1.conf encontrado em /etc/wireguard. Removendo o arquivo existente..."
+    echo "Arquivo wg-conf-1.conf encontrado em /etc/wireguard."
+    echo "Tentando derrubar a interface wg-conf-1..."
+    sudo wg-quick down wg-conf-1 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Interface wg-conf-1 derrubada com sucesso."
+    else
+        echo "Falha ao derrubar a interface wg-conf-1 ou ela já está inativa."
+    fi
+    echo "Removendo o arquivo wg-conf-1.conf existente..."
     sudo rm /etc/wireguard/wg-conf-1.conf
     echo "Arquivo existente removido."
 else
@@ -34,8 +42,14 @@ echo "Arquivo movido com sucesso."
 # Sobe a interface WireGuard
 echo "Subindo a interface WireGuard..."
 sudo wg-quick up wg-conf-1
-echo "Interface WireGuard subida com sucesso."
+if [ $? -eq 0 ]; then
+    echo "Interface WireGuard subida com sucesso."
+else
+    echo "Falha ao subir a interface WireGuard. Verifique o arquivo de configuração."
+    exit 1
+fi
 
 # Mostra o status do WireGuard
 echo "Exibindo o status do WireGuard:"
 sudo wg show
+
